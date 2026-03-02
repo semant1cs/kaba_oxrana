@@ -98,6 +98,7 @@ client.on(Events.InteractionCreate, async interaction => {
       await interaction.editReply("Произошла ошибка при обработке фото. Попробуй ещё раз позже.");
       return;
     }
+    console.log(interaction.guild)
 
     const member = await interaction.guild.members.fetch(interaction.user.id).catch(() => null);
     if (!member) {
