@@ -31,17 +31,6 @@ client.once(Events.ClientReady, async readyClient => {
 client.on(Events.InteractionCreate, async interaction => {
   if (!interaction.isChatInputCommand()) return;
 
-  if (!interaction.inGuild() || !interaction.guild) {
-    try {
-      await interaction.reply({
-        content: "Эта команда доступна только на сервере.",
-        ephemeral: true
-      });
-    } catch {
-    }
-    return;
-  }
-
   if (interaction.commandName === "help") {
     const helpText =
       "Это бот верификации сервера.\n\n" +
@@ -60,6 +49,16 @@ client.on(Events.InteractionCreate, async interaction => {
   }
 
   if (interaction.commandName === "verify") {
+    if (!interaction.inGuild() || !interaction.guild) {
+      try {
+        await interaction.reply({
+          content: "Эта команда доступна только на сервере.",
+          ephemeral: true
+        });
+      } catch {
+      }
+      return;
+    }
     if (verifyChannelId && interaction.channelId !== verifyChannelId) {
       await interaction.reply({
         content: "Эту команду нужно использовать в специальном канале для верификации.",
