@@ -49,16 +49,6 @@ client.on(Events.InteractionCreate, async interaction => {
   }
 
   if (interaction.commandName === "verify") {
-    if (!interaction.inGuild() || !interaction.guild) {
-      try {
-        await interaction.reply({
-          content: "Эта команда доступна только на сервере.",
-          ephemeral: true
-        });
-      } catch {
-      }
-      return;
-    }
     if (verifyChannelId && interaction.channelId !== verifyChannelId) {
       await interaction.reply({
         content: "Эту команду нужно использовать в специальном канале для верификации.",
